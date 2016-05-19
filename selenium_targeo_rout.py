@@ -2,11 +2,9 @@
 # -*- coding: utf8 -*-
 """
 Give your 'form' and ' to'. Application will check daily
-the rout and save the result. After a given time (e.g month)
+the rout and save the result. After a/home/stiven/PycharmProjects/WebScraping02 given time (e.g month)
 e-mail wil be send with results.
 
-crone (every minute):
-* * * * * export DISPLAY=:0 && cd /home/stiven/PycharmProjects/WebScraping02 && /home/stiven/.virtualenvs/WebScrpSelenium/bin/python selenium_targeo_rout.py > /tmp/listener.log 2>&1
 """
 
 import csv
@@ -30,7 +28,8 @@ def write_to_csv(time_of_travel, start, end):
 
 
 def init_webdriver():
-    driver = webdriver.Chrome("/home/stiven/PycharmProjects/WebScraping02/chromedriver")
+    # driver = webdriver.Chrome("/home/stiven/PycharmProjects/WebScraping02/chromedriver")
+    driver = webdriver.Firefox()
     driver.wait = WebDriverWait(driver, 5)
     return driver
 
@@ -47,7 +46,6 @@ def lookup(driver, start, end):
         box_start.send_keys(start)
         box_end.send_keys(end)
         submit.click()
-
         time_of_travel = driver.wait.until(EC.presence_of_element_located(
             (By.CLASS_NAME, "targeo-route-info-eta"))).text
 
@@ -61,5 +59,4 @@ def lookup(driver, start, end):
 if __name__ == "__main__":
     driver = init_webdriver()
     lookup(driver, "kraków, chodkiewicza", "zabierzów")
-    # time.sleep(5)
     driver.quit()
