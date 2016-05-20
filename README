@@ -1,0 +1,11 @@
+I'm on Ubuntu 14.04, python3.4
+
+Need:
+selenium
+xvfb
+firefox
+
+selenium_targeo_rout.py - python script to web spider a rout-finding-map and get the time of travel
+rout.csv                - write the results to a file
+crontab_activate.sh     - bash script to add a cronjob to perform 'script' at given times
+listener.log            - log

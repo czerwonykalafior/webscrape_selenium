@@ -1,10 +1,9 @@
-#!/usr/bin/python
 # -*- coding: utf8 -*-
+
 """
 Give your 'form' and ' to'. Application will check daily
-the rout and save the result. After a/home/stiven/PycharmProjects/WebScraping02 given time (e.g month)
-e-mail wil be send with results.
-
+the rout and save the result. After a given time (e.g month)
+e-mail will be send with results.
 """
 
 import csv
@@ -28,7 +27,6 @@ def write_to_csv(time_of_travel, start, end):
 
 
 def init_webdriver():
-    # driver = webdriver.Chrome("/home/stiven/PycharmProjects/WebScraping02/chromedriver")
     driver = webdriver.Firefox()
     driver.wait = WebDriverWait(driver, 5)
     return driver
@@ -49,14 +47,15 @@ def lookup(driver, start, end):
         time_of_travel = driver.wait.until(EC.presence_of_element_located(
             (By.CLASS_NAME, "targeo-route-info-eta"))).text
 
-        print("writing")
         write_to_csv(time_of_travel, start, end)
 
-    except TimeoutException:
-        print("".join(("Can find elements on ", url)))
+    except Exception as e:
+        print(" ".join(("Something goes wrong:", str(e))))
 
 
 if __name__ == "__main__":
+    print("start")
     driver = init_webdriver()
     lookup(driver, "kraków, chodkiewicza", "zabierzów")
     driver.quit()
+    print("end")
